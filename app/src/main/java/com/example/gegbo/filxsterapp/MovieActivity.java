@@ -1,6 +1,7 @@
 package com.example.gegbo.filxsterapp;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
@@ -23,6 +24,8 @@ public class MovieActivity extends AppCompatActivity {
     ArrayList<Movie> movies;
     MovieArrayAdapter movieAdapter;
     ListView lvItems;
+    private SwipeRefreshLayout swipeContainer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class MovieActivity extends AppCompatActivity {
                     movies.addAll(Movie.fromJSONArray(movieJSONResults));
                     movieAdapter.notifyDataSetChanged();
 
-                    Log.d("DEBUG", movieJSONResults.toString() );
+                    Log.d("DEBUG", movieJSONResults.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
