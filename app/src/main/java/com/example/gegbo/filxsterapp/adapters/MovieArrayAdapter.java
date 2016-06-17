@@ -15,16 +15,24 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+
 /**
  * Created by gegbo on 6/15/16.
  */
 public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
     // View lookup cache
-    private static class ViewHolder {
-        TextView tvTitle;
-        TextView tvOverview;
-        ImageView ivImage;
+    public static class ViewHolder {
+        @BindView(R.id.tvTitle) TextView tvTitle;
+        @BindView(R.id.tvOverview) TextView tvOverview;
+        @BindView(R.id.ivMovieImage) ImageView ivImage;
+
+        public ViewHolder(View convertView) {
+            ButterKnife.bind(this, convertView);
+        }
     }
 
 
@@ -41,17 +49,12 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         //check to see if existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
         if (convertView == null) {
-            viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_movie,parent, false);
+            viewHolder = new ViewHolder(convertView);
 
-            //find the image view
-            viewHolder.ivImage = (ImageView)convertView.findViewById(R.id.ivMovieImage);
             //clear out image from convertView
             viewHolder.ivImage.setImageResource(0);
-
-            viewHolder.tvTitle = (TextView)convertView.findViewById(R.id.tvTitle);
-            viewHolder.tvOverview = (TextView)convertView.findViewById(R.id.tvOverview);
             convertView.setTag(viewHolder);
         }
         else {
@@ -65,12 +68,12 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         boolean isLandscape = getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         if(isLandscape) {
             //Picasso.with(getContext()).load(movie.getBackdropPath()).into(viewHolder.ivImage);
-            Picasso.with(getContext()).load(movie.getBackdropPath()).placeholder(R.drawable.placeholder).into(viewHolder.ivImage);
+            Picasso.with(getContext()).load(movie.getBackdropPath()).transform(new RoundedCornersTransformation(10,10)).placeholder(R.drawable.placeholder).into(viewHolder.ivImage);
         }
         else {
             //Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.ivImage);
 //            if(movie.getBackdropPath() != null) {
-                Picasso.with(getContext()).load(movie.getPosterPath()).placeholder(R.drawable.placeholder).error(R.drawable.image_not_available).into(viewHolder.ivImage);
+                Picasso.with(getContext()).load(movie.getPosterPath()).transform(new RoundedCornersTransformation(10,10)).placeholder(R.drawable.placeholder).error(R.drawable.image_not_available).into(viewHolder.ivImage);
             //}
         }
 

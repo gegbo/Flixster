@@ -72,11 +72,13 @@ public class MovieActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(MovieActivity.this,DetailMovieActivity.class);
 
+                //Log.d("MovieActivity",movies.get(position).getOriginalTitle());
                 i.putExtra("title",movies.get(position).getOriginalTitle());
                 i.putExtra("overview",movies.get(position).getOverview());
                 i.putExtra("poster_path",movies.get(position).getBackdropPath());
                 i.putExtra("vote_count",movies.get(position).getVoteCount());
-
+                i.putExtra("popularity",movies.get(position).getPopularity());
+                i.putExtra("release_date",movies.get(position).getReleaseDate());
                 startActivity(i);
             }
         });
