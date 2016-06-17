@@ -1,9 +1,12 @@
 package com.example.gegbo.filxsterapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.gegbo.filxsterapp.adapters.MovieArrayAdapter;
@@ -60,6 +63,21 @@ public class MovieActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
 
+            }
+        });
+
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(MovieActivity.this,DetailMovieActivity.class);
+
+                i.putExtra("title",movies.get(position).getOriginalTitle());
+                i.putExtra("overview",movies.get(position).getOverview());
+                i.putExtra("poster_path",movies.get(position).getBackdropPath());
+                i.putExtra("vote_count",movies.get(position).getVoteCount());
+
+                startActivity(i);
             }
         });
     }

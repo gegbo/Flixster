@@ -65,12 +65,12 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         boolean isLandscape = getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         if(isLandscape) {
             //Picasso.with(getContext()).load(movie.getBackdropPath()).into(viewHolder.ivImage);
-            Picasso.with(getContext()).load(movie.getBackdropPath()).placeholder(R.drawable.giphy).into(viewHolder.ivImage);
+            Picasso.with(getContext()).load(movie.getBackdropPath()).placeholder(R.drawable.placeholder).into(viewHolder.ivImage);
         }
         else {
             //Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.ivImage);
 //            if(movie.getBackdropPath() != null) {
-                Picasso.with(getContext()).load(movie.getPosterPath()).placeholder(R.drawable.giphy).error(R.drawable.image_not_available).into(viewHolder.ivImage);
+                Picasso.with(getContext()).load(movie.getPosterPath()).placeholder(R.drawable.placeholder).error(R.drawable.image_not_available).into(viewHolder.ivImage);
             //}
         }
 
